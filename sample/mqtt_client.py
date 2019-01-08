@@ -41,7 +41,7 @@ class MQTTClient(object):
                 project_id, private_key_file, algorithm))
         self.client.tls_set(ca_certs=ca_certs, tls_version=ssl.PROTOCOL_TLSv1_2)
 
-    def attach_device(self, device_jwt):
+    def attach_device(self, device_jwt=None):
         attach_topic = '/devices/{}/attach'.format(self.device_id)
         attach_payload = {}
         if device_jwt:
