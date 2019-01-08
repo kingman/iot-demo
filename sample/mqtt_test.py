@@ -167,7 +167,7 @@ class MyFeatureListener(FeatureListener):
             self.num += 1
 
     def send_to_cloud(self, feature):
-        self.mqtt_client.send_event(feature)
+        self.mqtt_client.send_event(str(feature))
 
     def initiate_cloud_client(self):
         if not self.mqtt_client:
