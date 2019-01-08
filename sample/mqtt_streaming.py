@@ -168,13 +168,12 @@ class MyFeatureListener(FeatureListener):
             self.num += 1
 
     def send_to_cloud(self, feature):
-        # sample = feature.get_sample()
-        # payload = {}
-        # payload['feature'] = feateure.get_name()
-        # payload['ts'] = sample.get_timestamp()
-        # payload['value'] = str(sample.get_data())
-        # self.mqtt_client.send_event(json.dumps(payload))
-        self.mqtt_client.send_event(str(feature))
+        sample = feature.get_sample()
+        payload = {}
+        payload['feature'] = feature.get_name()
+        payload['ts'] = sample.get_timestamp()
+        payload['value'] = str(sample.get_data())
+        self.mqtt_client.send_event(json.dumps(payload))
 
     def initiate_cloud_client(self):
         if not self.mqtt_client:
