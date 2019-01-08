@@ -16,6 +16,7 @@
 import paho.mqtt.client as mqtt
 import utilities
 import ssl
+import time
 
 class MQTTClient(object):
     mqtt_bridge_hostname = 'mqtt.googleapis.com'
@@ -25,6 +26,7 @@ class MQTTClient(object):
     def __init__(self, project_id, registry_id, device_id, private_key_file, cloud_region, ca_certs, algorithm, gateway_id):
         self.topic = '/devices/{}/events'.format(device_id)
         self.gateway_id = gateway_id
+        self.device_id = device_id
         connecting_device_id = self.gateway_id if self.gateway_id else device_id
         self.client = mqtt.Client(
             client_id=('projects/{}/locations/{}/registries/{}/devices/{}'
@@ -38,6 +40,15 @@ class MQTTClient(object):
             password=utilities.create_jwt(
                 project_id, private_key_file, algorithm))
         self.client.tls_set(ca_certs=ca_certs, tls_version=ssl.PROTOCOL_TLSv1_2)
+
+    def attach_device(self, device_jwt):
+        attach_topic = '/devices/{}/attach'.format(self.device_id)
+        attach_payload = {}
+        if device_jwt:
+            attach_payload['authorization'] = device_jwt
+        self.client.loop()
+        self.client.publish(attach_topic, json.dumps(attach_payload), qos=1)
+        time.sleep(5)
 
     def connect_to_server(self):
         self.client.connect(self.mqtt_bridge_hostname, self.mqtt_bridge_port)
