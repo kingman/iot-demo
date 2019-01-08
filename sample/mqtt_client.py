@@ -59,7 +59,7 @@ class MQTTClient(object):
         self.connected = False
 
     def send_event(self, msg):
-        msgInfo = self.client.publish(self.mqtt_topic, msg, qos=1)
+        msgInfo = self.client.publish(self.topic, msg, qos=1)
 
     def set_device_name(self, device_name):
         self.device_name = device_name
