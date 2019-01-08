@@ -282,6 +282,7 @@ def main(argv):
 
                 # Enabling notifications.
                 feature_listener = MyFeatureListener()
+                feature_listener.initiate_cloud_client()
 
                 for choice in features_choices:
                     feature = features[choice - 1]
@@ -296,8 +297,6 @@ def main(argv):
                         audioFeature_listener = MyFeatureListener()
                         audioFeature.add_listener(audioFeature_listener)
                         device.enable_notifications(audioFeature)
-
-                feature_listener.initiate_cloud_client()
 
                 # Getting notifications.
                 n = 0
