@@ -52,6 +52,8 @@ class MQTTClient(object):
 
     def connect_to_server(self):
         self.client.connect(self.mqtt_bridge_hostname, self.mqtt_bridge_port)
+        if self.gateway_id:
+            self.attach_device()
         self.connected = True
 
     def disconnect_from_server(self):
