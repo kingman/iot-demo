@@ -1,0 +1,7 @@
+{
+  "name": "sample-pubsub",
+  "version": "0.0.1",
+  "dependencies": {
+    "influxdb-nodejs": "2.10.0"
+  }
+}
