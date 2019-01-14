@@ -20,12 +20,14 @@ High level overview of the solution setup
 - Follow the [basic guide](https://www.raspberrypi.org/downloads/raspbian/) for installation of Raspbian on the board
 - Install helper libs
 ```
-$ sudo apt-get install python-pip libglib2.0-dev
+$ sudo apt-get update
+$ sudo apt-get install python-pip libglib2.0-dev gcc libffi-dev libssl-dev python-dev
 ```
 - Follow the setup up [guide](https://github.com/STMicroelectronics-CentralLabs/BlueSTSDK_Python) for BlueST SDK
 - Check out source repository:
 ```
 $ git clone git@github.com:kingman/iot-demo.git
+$ cp iot-demo/sample/feature.py /usr/local/lib/python2.7/dist-packages/blue_st_sdk/feature.py
 ```
 
 ## Cloud IoT Core setup
@@ -42,4 +44,3 @@ $ openssl req -x509 -newkey rsa:2048 -keyout rsa_private.pem -nodes -out rsa_cer
   - Make sure MQTT protocol is selected
   - Create a Pub/Sub topic for telemetry data on the flight
   - Press the Create button
-  
