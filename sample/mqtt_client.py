@@ -19,6 +19,9 @@ import ssl
 import time
 import json
 
+def error_str(rc):
+    return '{}: {}'.format(rc, mqtt.error_string(rc))
+
 def on_disconnect(unused_client, unused_userdata, rc):
     print('on_disconnect', error_str(rc))
 
