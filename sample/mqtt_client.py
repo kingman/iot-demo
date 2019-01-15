@@ -19,6 +19,9 @@ import ssl
 import time
 import json
 
+def on_disconnect(unused_client, unused_userdata, rc):
+    print('on_disconnect', error_str(rc))
+
 class MQTTClient(object):
     mqtt_bridge_hostname = 'mqtt.googleapis.com'
     mqtt_bridge_port = 8883
@@ -61,9 +64,6 @@ class MQTTClient(object):
     def disconnect_from_server(self):
         self.client.disconnect()
         self.connected = False
-
-    def on_disconnect(unused_client, unused_userdata, rc):
-        print('on_disconnect', error_str(rc))
 
     def send_event(self, msg):
         self.client.loop()
