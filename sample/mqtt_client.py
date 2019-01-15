@@ -41,6 +41,7 @@ class MQTTClient(object):
             password=utilities.create_jwt(
                 project_id, private_key_file, algorithm))
         self.client.tls_set(ca_certs=ca_certs, tls_version=ssl.PROTOCOL_TLSv1_2)
+        self.client.on_disconnect = on_disconnect
 
     def attach_device(self, device_jwt=None):
         attach_topic = '/devices/{}/attach'.format(self.device_id)
@@ -61,7 +62,11 @@ class MQTTClient(object):
         self.client.disconnect()
         self.connected = False
 
+    def on_disconnect(unused_client, unused_userdata, rc):
+        print('on_disconnect', error_str(rc))
+
     def send_event(self, msg):
+        self.client.loop()
         msgInfo = self.client.publish(self.topic, msg, qos=1)
 
     def set_device_name(self, device_name):

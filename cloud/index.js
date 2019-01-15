@@ -7,7 +7,7 @@ exports.sense = function (event, callback) {
   };
   const tagSchema = {
     feature: ['temperature', 'humidity', 'pressure', 'magnetometer', 'gyroscope', 'accelerometer'],
-    device: ['sensi1','sensi2']
+    device: ['sensi1','sensi2','sensi3','sensi4','sensi5','sensi6','sensi7','sensi8']
   };
   client.schema('measurement', fieldSchema, tagSchema, {
     stripUnknown: true
